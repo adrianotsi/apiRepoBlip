@@ -4,7 +4,12 @@ module.exports = {
     async index(request, response){
         try{
             //Requisição na API do Github
-            let {data} = await axios ('https://api.github.com/orgs/takenet/repos')
+            const token = `${process.env.token}`;
+            let {data} = await axios.get('https://api.github.com/orgs/takenet/repos', {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
 
             //Filtrar array para exibir somente repositórios com a linguagem C#
             data = data.filter(function(item) {
